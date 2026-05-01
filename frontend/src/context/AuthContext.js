@@ -4,6 +4,7 @@ import axios from 'axios';
 const AuthContext = createContext();
 
 export const useAuth = () => useContext(AuthContext);
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -13,7 +14,7 @@ export const AuthProvider = ({ children }) => {
     if (token) {
       axios.defaults.headers.common['x-auth-token'] = token;
       // Fetch user data
-      axios.get('http://localhost:3000/api/auth/me')
+      axios.get(`${API_URL}/api/auth/me`)
         .then(res => setUser(res.data))
         .catch(() => {
           localStorage.removeItem('token');
@@ -23,22 +24,22 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
-    const res = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+   const res = await axios.post(`${API_URL}/api/auth/login`, { email, password });
     setToken(res.data.token);
     localStorage.setItem('token', res.data.token);
     axios.defaults.headers.common['x-auth-token'] = res.data.token;
     // Fetch user
-    const userRes = await axios.get('http://localhost:3000/api/auth/me');
+   const userRes = await axios.get(`${API_URL}/api/auth/me`);
     setUser(userRes.data);
   };
 
   const register = async (name, email, password, role) => {
-    const res = await axios.post('http://localhost:3000/api/auth/register', { name, email, password, role });
+    const res = await axios.post(`${API_URL}/api/auth/register`, { name, email, password, role });
     setToken(res.data.token);
     localStorage.setItem('token', res.data.token);
     axios.defaults.headers.common['x-auth-token'] = res.data.token;
     // Fetch user
-    const userRes = await axios.get('http://localhost:3000/api/auth/me');
+    const userRes = await axios.get(`${API_URL}/api/auth/me`);
     setUser(userRes.data);
   };
 
