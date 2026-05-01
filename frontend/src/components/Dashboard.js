@@ -4,12 +4,13 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
   const [stats, setStats] = useState({});
   const { user } = useAuth();
 
   useEffect(() => {
     const fetchStats = async () => {
-      const res = await axios.get('http://localhost:3000/api/tasks/dashboard/stats');
+      const res = await axios.get(`${API_URL}/api/tasks/dashboard/stats`);
       setStats(res.data);
     };
     fetchStats();
