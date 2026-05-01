@@ -1,0 +1,50 @@
+.App {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.add-task {
+  margin-bottom: 20px;
+}
+
+.add-task input {
+  margin: 5px;
+  padding: 8px;
+  width: 200px;
+}
+
+.add-task button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.tasks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.task {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 5px;
+  width: 300px;
+}
+
+.task button {
+  margin: 5px;
+  padding: 5px 10px;
+  background-color: #008CBA;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.task button:last-child {
+  background-color: #f44336;
+}
