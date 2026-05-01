@@ -4,6 +4,7 @@ import { Add, Edit, Delete } from '@mui/icons-material';
 import axios from 'axios';
 
 const Tasks = () => {
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
   const [users, setUsers] = useState([]);
@@ -18,12 +19,12 @@ const Tasks = () => {
   }, []);
 
   const fetchTasks = async () => {
-    const res = await axios.get('http://localhost:3000/api/tasks');
+    const res = await axios.get(`${API_URL}/api/tasks`);
     setTasks(res.data);
   };
 
   const fetchProjects = async () => {
-    const res = await axios.get('http://localhost:3000/api/projects');
+    const res = await axios.get(`${API_URL}/api/projects`);
     setProjects(res.data);
   };
 
@@ -53,16 +54,16 @@ const Tasks = () => {
 
   const handleSubmit = async () => {
     if (editingTask) {
-      await axios.put(`http://localhost:3000/api/tasks/${editingTask._id}`, formData);
+      await axios.put(`${API_URL}/api/tasks/${editingTask._id}`, formData);
     } else {
-      await axios.post('http://localhost:3000/api/tasks', formData);
+      await axios.post(`${API_URL}/api/tasks`, formData);
     }
     fetchTasks();
     handleClose();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3000/api/tasks/${id}`);
+    await axios.delete(`${API_URL}/api/tasks/${id}`);
     fetchTasks();
   };
 
