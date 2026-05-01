@@ -4,6 +4,7 @@ import { Add, Edit, Delete } from '@mui/icons-material';
 import axios from 'axios';
 
 const Projects = () => {
+  const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3000';
   const [projects, setProjects] = useState([]);
   const [open, setOpen] = useState(false);
   const [editingProject, setEditingProject] = useState(null);
@@ -14,7 +15,7 @@ const Projects = () => {
   }, []);
 
   const fetchProjects = async () => {
-    const res = await axios.get('http://localhost:3000/api/projects');
+    const res = await axios.get(`${API_URL}/api/projects`);
     setProjects(res.data);
   };
 
@@ -31,16 +32,16 @@ const Projects = () => {
 
   const handleSubmit = async () => {
     if (editingProject) {
-      await axios.put(`http://localhost:3000/api/projects/${editingProject._id}`, formData);
+      await axios.put(`${API_URL}/api/projects/${editingProject._id}`, formData);
     } else {
-      await axios.post('http://localhost:3000/api/projects', formData);
+      await axios.post(`${API_URL}/api/projects`, formData);
     }
     fetchProjects();
     handleClose();
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:3000/api/projects/${id}`);
+    await axios.delete(`${API_URL}/api/projects/${id}`);
     fetchProjects();
   };
 
